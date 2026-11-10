@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f4f0">
+  <meta name="description" content="Крошка — кофе, маленькие радости и ваши любимые завтраки. Интерактивный прототип приложения.">
+  <title>Крошка — маленькая радость каждый день</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="product-detail.css">
+  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="cafe.css">
+  <link rel="stylesheet" href="happy-flow.css">
+  <link rel="stylesheet" href="payment-scenarios.css">
+  <link rel="stylesheet" href="figma-visual.css">
+  <link rel="stylesheet" href="research-mode.css">
+  <script defer src="assets/lucide.min.js"></script>
+  <script defer src="cart.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="product-detail.js"></script>
+  <script defer src="cafe.js"></script>
+  <script defer src="happy-flow.js"></script>
+  <script defer src="payment-validation.js"></script>
+  <script defer src="payment-scenarios.js"></script>
+  <script defer src="research-config.js"></script>
+  <script defer src="research-mode.js"></script>
+</head>
+<body>
+  <div class="presentation-brand" aria-hidden="true"><span class="brand">крошка<span>✳</span></span><span class="presentation-caption">КОФЕ И МАЛЕНЬКИЕ РАДОСТИ</span></div>
+  <main class="stage" aria-label="Прототип мобильного приложения Крошка">
+    <div class="device">
+      <div class="side-button mute"></div><div class="side-button volume-one"></div><div class="side-button volume-two"></div><div class="side-button power"></div>
+      <div class="screen">
+        <div class="status-bar" aria-hidden="true"><span>9:41</span><div class="dynamic-island"><span></span></div><div class="status-icons"><i data-lucide="signal"></i><i data-lucide="wifi"></i><span class="battery"></span></div></div>
+        <header class="app-header">
+          <button class="location-button" data-action="locations" aria-label="Выбрать кофейню. Сейчас на Петроградской"><img class="location-logo" src="assets/monogram-s.svg" alt="" width="38" height="38"><span class="location-copy"><span class="location-title">На Петроградской <i data-lucide="chevron-down"></i></span><span class="location-status"><span></span>Открыто до 22:00</span></span></button>
+          <button class="icon-button notification-button" data-action="notifications" aria-label="Уведомления: 2 новых"><i data-lucide="bell"></i><span class="notification-dot"></span></button>
+          <button class="icon-button profile-button" data-action="profile" aria-label="Профиль"><i data-lucide="user-round"></i></button>
+        </header>
+        <header class="basket-header" id="basket-header" hidden><button class="icon-button" data-basket-action="back" aria-label="На главную"><i data-lucide="arrow-left"></i></button><h1 id="basket-header-title" tabindex="-1">Корзина</h1><button class="icon-button" id="basket-clear" data-basket-action="clear" aria-label="Очистить корзину"><i data-lucide="trash-2"></i></button></header>
+        <div class="app-scroll" id="app-scroll" tabindex="0" aria-label="Содержимое приложения">
+          <div id="page-content"></div>
+        </div>
+        <button class="mini-cart" id="mini-cart" data-action="cart" hidden><span class="mini-cart-left"><i data-lucide="shopping-bag"></i><span id="mini-cart-count"></span></span><span>К заказу <i data-lucide="arrow-right"></i></span><strong id="mini-cart-total"></strong></button>
+        <div class="basket-checkout-bar" id="basket-checkout-bar" hidden><button class="primary-button" data-basket-action="pay"><span id="basket-pay-label">Оплатить</span><i data-lucide="arrow-right"></i></button><p>Демонстрационный заказ · без списания денег</p></div>
+        <nav class="tab-bar" aria-label="Основная навигация">
+          <button class="tab active" data-tab="home" aria-current="page" aria-label="Главная" title="Главная"><span><i data-lucide="house" aria-hidden="true"></i></span></button>
+          <button class="tab" data-tab="menu" aria-label="Меню" title="Меню"><span><i data-lucide="grid-2x2" aria-hidden="true"></i></span></button>
+          <button class="tab" data-tab="cart" aria-label="Корзина" title="Корзина"><span><i data-lucide="shopping-cart" aria-hidden="true"></i></span><em class="basket-badge" id="basket-tab-count" hidden></em></button>
+          <button class="tab" data-tab="favorites" aria-label="Любимое" title="Любимое"><span><i data-lucide="heart" aria-hidden="true"></i></span></button>
+        </nav>
+        <div class="home-indicator" aria-hidden="true"><span></span></div>
+        <section class="product-view" id="product-view" role="dialog" aria-modal="true" aria-labelledby="product-view-title" hidden></section>
+        <section id="cafe-view" class="cafe-view" role="dialog" aria-modal="true" aria-labelledby="cafe-title" hidden></section>
+        <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+        <section class="bottom-sheet" id="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden></section>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </main>
+  <footer class="presentation-footer"><span>КРОШКА APP <span class="footer-slash">/</span> ГЛАВНЫЙ ЭКРАН</span><span>Сделано для хорошего дня <span class="tiny-flower">✳</span></span></footer>
+</body>
+</html>

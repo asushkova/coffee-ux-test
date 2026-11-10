@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="340" viewBox="0 0 440 340">
+<rect width="440" height="340" fill="#eeeae1"/>
+<g fill="#e4dfd4" stroke="#dcd7cd" stroke-width="1">
+<path d="M12 0h63l-8 58-62 7zM94 0h78l-21 62-63-5zM189 0h79l-17 61-79 4zM25 86l52-7 27 54-72 26zM101 79l51 0 24 45-55 17zM176 82l68-4-22 59-40-10zM45 174l71-22 22 54-70 28zM133 148l70-11 19 39-68 26zM74 251l70-25 21 58-79 26zM174 221l66-20 23 56-74 22zM105 330l80-29 11 39H105zM260 184l51-19 30 62-61 21zM300 263l65-28 31 54-73 40zM356 141l71-18 13 80-75 17zM389 230l51-14v96l-25 3z"/>
+</g>
+<path d="M295-40C291 35 273 77 295 102S357 113 384 82 433 66 481 96" fill="none" stroke="#c4d6d4" stroke-width="44"/>
+<path d="M307-40C303 35 285 75 304 93S353 104 377 73 432 54 481 84" fill="none" stroke="#d4e1dc" stroke-width="2"/>
+<path d="M231 142l34-20 35 16-49 40zM345 0h92v41l-52 13-42-25zM8 218l44 11 18 72L0 322z" fill="#d5ddc7"/>
+<g fill="none" stroke="#fcfaf4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M73-20L52 76 133 209 180 360" stroke-width="15"/>
+<path d="M0 179L147 134 234 154 451 85" stroke-width="17"/>
+<path d="M186-20L161 74 235 192 302 358" stroke-width="19"/>
+<path d="M-20 279L180 210 336 151 465 153" stroke-width="11"/>
+<path d="M-20 76L164 72 272 67 345 0M48 347L229 279 450 202" stroke-width="9"/>
+</g>
+<g fill="none" stroke="#dcc5a5" stroke-width="2" opacity=".7"><path d="M186-20L161 74 235 192 302 358"/><path d="M0 179L147 134 234 154 451 85"/></g>
+<g font-family="Arial,sans-serif" fill="#a29989" font-size="9" letter-spacing=".4"><text x="21" y="142" transform="rotate(-18 21 142)">Большой проспект</text><text x="202" y="196" transform="rotate(64 202 196)">Каменноостровский пр.</text><text x="307" y="54" transform="rotate(14 307 54)" fill="#8ea8a4">река Карповка</text><text x="80" y="293" transform="rotate(-20 80 293)">Большая Пушкарская ул.</text><text x="290" y="244" font-size="8">ПЕТРОГРАДСКАЯ</text><text x="291" y="256" font-size="8">СТОРОНА</text></g>
+<g transform="translate(180 94)"><circle r="8" fill="#faf8f2"/><text x="-4" y="3" fill="#859975" font-family="Arial" font-weight="bold" font-size="9">М</text><text x="12" y="3" fill="#8c8275" font-family="Arial" font-size="9">Петроградская</text></g>
+</svg>
