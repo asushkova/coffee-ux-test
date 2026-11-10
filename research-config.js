@@ -2,24 +2,13 @@
 
 // Shared by the browser and the baseline checks. No participant data is stored.
 (function(root){
-  const tasks=[
-    {id:'1',name:'Оформление заказа',method:'sbp',scenario:'sbp',
-      instruction:'Вы уже выбрали кофейню и напитки. Оформите и оплатите заказ, чтобы забрать его в 14:30–14:35.',
-      check:'Заказ оплачен, в подтверждении и деталях указано 14:30–14:35.'},
-    {id:'2',name:'Изменение состава',method:'saved-visa',scenario:'saved-visa',
-      instruction:'Вы передумали брать шоколадный фраппе. Оставьте флэт уайт, добавьте чизкейк Нью-Йорк и оплатите заказ на 14:30–14:35.',
-      check:'Фраппе удалён, флэт уайт и чизкейк в заказе. Без скидок итог 805 ₽.'},
-    {id:'3',name:'Баллы и промокод',method:'saved-visa',scenario:'saved-visa',
-      instruction:'У вас есть 76 баллов и промокод NEW100 на скидку 100 ₽. Оформите заказ с использованием обеих возможностей и оплатите его.',
-      check:'765 − 100 − 76 = 589 ₽. Неверный код показывает ошибку, исправление и удаление кода работают.'},
-    {id:'4',name:'Восстановление после ошибки',method:'saved-visa',scenario:'payment-error',
-      instruction:'Оформите и оплатите выбранные напитки на 14:30–14:35. Действуйте так, как поступили бы обычно.',
-      check:'Первая оплата отклонена. Корзина, время, баллы и промокод сохраняются. Повтор или смена способа завершают заказ.'}
-  ];
+  const tasks=[{id:'1',name:'Оформление заказа',method:'sbp',scenario:'sbp',
+    instruction:'Оформите и оплатите выбранные напитки, чтобы забрать заказ в 14:30–14:35.',
+    check:'Два напитка, 765 ₽, успешная оплата и получение в 14:30–14:35.'}];
   function taskById(id){return tasks.find(task=>task.id===String(id))||tasks[0];}
   function baseline(id){
     const task=taskById(id);
-    return {taskId:task.id,scenario:task.scenario,method:task.method,bonus:76,redeem:false,
+    return {taskId:task.id,scenario:task.scenario,method:task.method,bonus:0,redeem:false,
       promo:'',pickup:'research-1430',branch:0,hasLinked:true,hasVisa:true,
       cart:[{id:'flow-flat',price:380,unit:'350 мл',qty:1,milk:'Овсяное',modifiers:[]},
         {id:'flow-frappe',price:385,unit:'250 мл',qty:1,milk:'Классическое',modifiers:[]}]};

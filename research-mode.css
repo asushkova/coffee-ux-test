@@ -1,12 +1,6 @@
-/* Participant links deliberately contain no moderator controls or outcome hints. */
-.scenario-control{display:none!important}
-.research-participant .presentation-footer,.research-participant .demo-note{display:none!important}
-#research-panel{position:fixed;top:24px;right:24px;width:300px;max-height:calc(100dvh - 48px);overflow:auto;padding:22px;background:white;border:1px solid #e8e8e8;border-radius:20px;font:13px/1.55 Manrope,sans-serif;color:#1e1e1e;box-shadow:0 8px 36px #0000000d;z-index:50}
-#research-panel h2{font-size:17px;margin:0 0 18px}#research-panel h3{font-size:13px;margin:20px 0 8px}
-#research-panel label{display:block;margin-bottom:6px}#research-panel select{width:100%;font:inherit;padding:10px;border:1px solid #ddd;border-radius:10px;background:#f5f5f5}
-#research-panel p{margin:8px 0 16px}#research-panel details{margin:16px 0}#research-panel summary{cursor:pointer}
-#research-panel button,#research-panel a{display:block;width:100%;text-align:center;text-decoration:none;padding:12px;border-radius:12px;font:600 13px/1.4 Manrope,sans-serif;margin:10px 0;background:#f5f5f5;color:#1e1e1e}
-#research-panel button{background:#e96430;color:white}#research-panel small{display:block;color:#777;font-size:11px;margin-top:16px}
-@media(min-width:1000px){.research-moderator .stage{padding-right:350px}.research-moderator .presentation-brand{display:none}}
-@media(max-width:999px){#research-panel{position:relative;top:auto;right:auto;width:calc(100% - 32px);max-width:500px;max-height:none;margin:16px auto}.research-moderator .presentation-footer{display:none}}
+/* A single fixed checkout case, without moderator or technical controls. */
+.scenario-control,.presentation-footer,.demo-note{display:none!important}
+.single-checkout #basket-clear{display:none!important}
+.single-checkout .tab:disabled{opacity:1;cursor:default}
+.checkout-quantity{font-size:13px;line-height:18px;color:#1e1e1e66}
 @media(max-width:430px){.research-participant.happy-mode .stage{padding-bottom:0}.research-participant.happy-mode .device{height:100dvh}}

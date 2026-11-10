@@ -1,9 +1,9 @@
 'use strict';
 
 const researchParams=new URLSearchParams(location.search);
-const researchModerator=researchParams.get('moderator')==='1';
+const researchModerator=false;
 let researchTask=ResearchConfig.taskById(researchParams.get('task'));
-document.body.classList.add(researchModerator?'research-moderator':'research-participant');
+document.body.classList.add('research-participant','single-checkout');
 
 const liveCartSchedule=cartSchedule;
 cartSchedule=function(){return happyMode?ResearchConfig.schedule():liveCartSchedule();};
@@ -13,12 +13,8 @@ selectedPickupText=function(){
   return cartSchedule().slots.find(slot=>slot.key===cartOptions.pickup)?.label||'14:30–14:35';
 };
 
-function researchLink(id,moderator=false){
-  const url=new URL(location.href);
-  url.search='';url.searchParams.set('task',id);
-  if(moderator)url.searchParams.set('moderator','1');
-  url.hash='happy-flow';
-  return url.href;
+function researchLink(){
+  const url=new URL(location.href);url.search='';url.hash='happy-flow';return url.href;
 }
 
 function startResearchTask(id){
@@ -41,27 +37,50 @@ function startResearchTask(id){
   refreshBasket();$('#app-scroll').scrollTop=0;
   history.replaceState(null,'',researchLink(researchTask.id,researchModerator));
   updateScenarioDescription();
-  if(researchModerator)updateResearchPanel();
+
 }
 
-function updateResearchPanel(){
-  const panel=$('#research-panel');if(!panel)return;
-  $('#research-task-select').value=researchTask.id;
-  $('#research-instruction').textContent=researchTask.instruction;
-  $('#research-check').textContent=researchTask.check;
-  $('#research-participant-link').href=researchLink(researchTask.id);
-}
+// Keep the existing checkout layout, with a fixed order and no discount controls.
+const fullResearchCart=cartPage;
+cartPage=function(){
+  const view=document.createElement('template');view.innerHTML=fullResearchCart();
+  view.content.querySelector('.flow-products')?.closest('.flow-cart-section')?.remove();
+  view.content.querySelector('.basket-points')?.closest('.flow-cart-section')?.remove();
+  view.content.querySelector('.flow-promo')?.remove();
+  const branch=view.content.querySelector('.flow-branch');
+  if(branch){
+    const info=document.createElement('div');info.className='flow-branch';
+    info.innerHTML=branch.querySelector('span').outerHTML;branch.replaceWith(info);
+  }
+  for(const quantity of view.content.querySelectorAll('.basket-quantity')){
+    const label=document.createElement('span');label.className='checkout-quantity';
+    label.textContent=quantity.querySelector('span')?.textContent+' шт.';quantity.replaceWith(label);
+  }
+  for(const row of view.content.querySelectorAll('.flow-summary dl>div')){
+    if(['Списание баллов','Промокод','Начислим'].some(text=>row.querySelector('dt')?.textContent.startsWith(text)))row.remove();
+  }
+  return view.innerHTML;
+};
 
-function mountResearchPanel(){
-  if(!researchModerator)return;
-  const panel=document.createElement('aside');panel.id='research-panel';
-  panel.setAttribute('aria-label','Панель модератора');
-  panel.innerHTML=`<h2>Панель модератора</h2><label for="research-task-select">Задание</label><select id="research-task-select">${ResearchConfig.tasks.map(task=>`<option value="${task.id}">${task.id}. ${task.name}</option>`).join('')}</select><h3>Текст для участника</h3><p id="research-instruction"></p><details><summary>Проверка сценария</summary><p id="research-check"></p></details><button id="research-reset" type="button">Начать задание заново</button><a id="research-participant-link" target="_blank" rel="noopener">Открыть режим респондента</a><small>Сброс очищает корзину, историю и результаты предыдущего прохождения. Оплата имитируется. При показе экрана участнику откройте отдельную ссылку без панели модератора.</small>`;
-  document.body.append(panel);updateResearchPanel();
-  $('#research-task-select').addEventListener('change',event=>startResearchTask(event.target.value));
-  $('#research-reset').addEventListener('click',()=>startResearchTask(researchTask.id));
-}
+// Choosing an existing payment method remains available; the case never injects a failure.
+const fullPaymentMethods=openBasketPayment;
+openBasketPayment=function(){
+  fullPaymentMethods();
+  document.querySelector('[data-payment-method="new-card"]')?.remove();
+};
 
 document.addEventListener('DOMContentLoaded',()=>{
-  mountResearchPanel();startResearchTask(researchTask.id);
+  startResearchTask('1');
+  $('#basket-clear').hidden=true;
+  for(const tab of document.querySelectorAll('.tab:not([data-tab="cart"])')){
+    tab.disabled=true;tab.tabIndex=-1;
+  }
 });
+
+// Prevent the fixed case from opening order-editing flows through residual actions.
+document.addEventListener('click',event=>{
+  const button=event.target.closest('button');if(!button)return;
+  if(button.matches('[data-flow-add],[data-basket-action="plus"],[data-basket-action="minus"],[data-basket-action="clear"],[data-basket-action="points-on"],[data-basket-action="promo"],[data-action="locations"],[data-action="menu"]')){
+    event.preventDefault();event.stopImmediatePropagation();
+  }
+},true);

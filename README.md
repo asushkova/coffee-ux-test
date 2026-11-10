@@ -1,8 +1,7 @@
 # Coffee UX test
 
-Interactive coffee-ordering prototype for a moderated usability study.
+One usability-test case: complete and pay for a fixed coffee order.
 
-No real payments or orders.
+Two drinks, 765 RUB, pickup 14:30–14:35. No moderator panel, order editing, discounts or simulated payment failures. No real payments or orders.
 
-Participant: ?task=1 (tasks 1–4).
-Moderator: ?task=1&moderator=1.
+https://asushkova.github.io/coffee-ux-test/
