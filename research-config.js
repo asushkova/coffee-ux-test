@@ -4,7 +4,7 @@
 (function(root){
   const tasks=[{id:'1',name:'Оформление заказа',method:'sbp',scenario:'sbp',
     instruction:'Оформите и оплатите заказ, выбрав подходящее время получения.',
-    check:'Корзина и способы оплаты соответствуют макету; баллы списываются до 10%, начисляются 15%.'}];
+    check:'Корзина и способы оплаты соответствуют макету; баллы списываются до 10%, начисляются 5%.'}];
   function taskById(id){return tasks.find(task=>task.id===String(id))||tasks[0];}
   function baseline(id){
     const task=taskById(id);

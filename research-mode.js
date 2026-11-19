@@ -50,10 +50,6 @@ cartPage=function(){
     const info=document.createElement('div');info.className='flow-branch';
     info.innerHTML=branch.innerHTML;branch.replaceWith(info);
   }
-  for(const label of view.content.querySelectorAll('.flow-summary dt')){
-    if(label.textContent==='Списание баллов')label.textContent='Списание баллов (10%)';
-    if(label.textContent==='Начислим')label.textContent='Начислим (15%)';
-  }
   return view.innerHTML;
 };
 
@@ -65,7 +61,7 @@ calculateCart=function(){
   const availablePoints=Math.min(state.bonus,Math.floor(Math.max(0,subtotal-promo)*.1));
   const points=state.redeem?availablePoints:0;
   const total=Math.max(0,subtotal-promo-points);
-  return {subtotal,promo,availablePoints,points,total,earned:Math.floor(total*.15),quantity:state.cart.reduce((n,item)=>n+item.qty,0)};
+  return {subtotal,promo,availablePoints,points,total,earned:Math.floor(total*.05),quantity:state.cart.reduce((n,item)=>n+item.qty,0)};
 };
 
 // Only the two requested payment options are offered, including after saving a card.
