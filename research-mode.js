@@ -10,7 +10,8 @@ cartSchedule=function(){return happyMode?ResearchConfig.schedule():liveCartSched
 const liveSelectedPickupText=selectedPickupText;
 selectedPickupText=function(){
   if(!happyMode)return liveSelectedPickupText();
-  return cartSchedule().slots.find(slot=>slot.key===cartOptions.pickup)?.label||'14:30–14:35';
+  const schedule=cartSchedule();
+  return schedule.slots.find(slot=>slot.key===cartOptions.pickup)?.label||schedule.nearestHint;
 };
 
 function researchLink(){
@@ -29,7 +30,7 @@ function startResearchTask(id){
   cartOptions.payment=initial.method==='sbp'||initial.method==='linked-sbp'?'sbp':'card';
   paymentDemo.scenario=initial.scenario;paymentDemo.method=initial.method;
   paymentDemo.failureUsed=false;paymentDemo.hasLinked=initial.hasLinked;paymentDemo.hasVisa=initial.hasVisa;
-  paymentMethodNames['saved-visa']='Картой •••• 5505';
+  paymentMethodNames['new-card']='Новой картой';
   pendingPaymentMethod=null;cardDraft=null;cartSubmitting=false;
   branches[0].name='На Петроградской';branches[0].address='Санкт-Петербург, проспект Медиков, 5';
   $('.status-bar>span').textContent='14:25';
@@ -40,47 +41,43 @@ function startResearchTask(id){
 
 }
 
-// Keep the existing checkout layout, with a fixed order and no discount controls.
+// Keep the cart controls and recommendations from the mockup.
 const fullResearchCart=cartPage;
 cartPage=function(){
   const view=document.createElement('template');view.innerHTML=fullResearchCart();
-  view.content.querySelector('.flow-products')?.closest('.flow-cart-section')?.remove();
-  view.content.querySelector('.basket-points')?.closest('.flow-cart-section')?.remove();
-  view.content.querySelector('.flow-promo')?.remove();
   const branch=view.content.querySelector('.flow-branch');
   if(branch){
     const info=document.createElement('div');info.className='flow-branch';
-    info.innerHTML=branch.querySelector('span').outerHTML;branch.replaceWith(info);
+    info.innerHTML=branch.innerHTML;branch.replaceWith(info);
   }
-  for(const quantity of view.content.querySelectorAll('.basket-quantity')){
-    const label=document.createElement('span');label.className='checkout-quantity';
-    label.textContent=quantity.querySelector('span')?.textContent+' шт.';quantity.replaceWith(label);
-  }
-  for(const row of view.content.querySelectorAll('.flow-summary dl>div')){
-    if(['Списание баллов','Промокод','Начислим'].some(text=>row.querySelector('dt')?.textContent.startsWith(text)))row.remove();
+  for(const label of view.content.querySelectorAll('.flow-summary dt')){
+    if(label.textContent==='Списание баллов')label.textContent='Списание баллов (10%)';
+    if(label.textContent==='Начислим')label.textContent='Начислим (15%)';
   }
   return view.innerHTML;
 };
 
-// Choosing an existing payment method remains available; the case never injects a failure.
+const fullCartCalculation=calculateCart;
+calculateCart=function(){
+  if(!happyMode)return fullCartCalculation();
+  const subtotal=cartSubtotal();
+  const promo=cartOptions.promo==='NEW100'&&subtotal>=400?100:0;
+  const availablePoints=Math.min(state.bonus,Math.floor(Math.max(0,subtotal-promo)*.1));
+  const points=state.redeem?availablePoints:0;
+  const total=Math.max(0,subtotal-promo-points);
+  return {subtotal,promo,availablePoints,points,total,earned:Math.floor(total*.15),quantity:state.cart.reduce((n,item)=>n+item.qty,0)};
+};
+
+// Only the two requested payment options are offered, including after saving a card.
 const fullPaymentMethods=openBasketPayment;
 openBasketPayment=function(){
+  paymentDemo.hasLinked=false;paymentDemo.hasVisa=false;
   fullPaymentMethods();
-  document.querySelector('[data-payment-method="new-card"]')?.remove();
 };
 
 document.addEventListener('DOMContentLoaded',()=>{
   startResearchTask('1');
-  $('#basket-clear').hidden=true;
   for(const tab of document.querySelectorAll('.tab:not([data-tab="cart"])')){
     tab.disabled=true;tab.tabIndex=-1;
   }
 });
-
-// Prevent the fixed case from opening order-editing flows through residual actions.
-document.addEventListener('click',event=>{
-  const button=event.target.closest('button');if(!button)return;
-  if(button.matches('[data-flow-add],[data-basket-action="plus"],[data-basket-action="minus"],[data-basket-action="clear"],[data-basket-action="points-on"],[data-basket-action="promo"],[data-action="locations"],[data-action="menu"]')){
-    event.preventDefault();event.stopImmediatePropagation();
-  }
-},true);

@@ -94,7 +94,7 @@ function renderHappyPayment(){
  }
  if(s.stage==='pending'){renderPaymentPending(s);return;}
  if(s.stage==='success'){
-  showFlowSheet('Заказ оформлен',`<div class="flow-result-content"><div class="flow-success-icon">${flowImage(flowAssets['6589:18334'].imgIcon)}</div><h3>Заказ оформлен!</h3><p>Будет готов к выдаче в ${safe(s.pickup)}</p></div><div class="flow-result-footer"><button class="primary-button" data-flow="details" data-number="${s.order.number}">Детали заказа</button>${flowHome()}</div>`,'success');
+  showFlowSheet('Заказ оформлен',`<div class="flow-result-content"><div class="flow-success-icon">${flowImage(flowAssets['6589:18334'].imgIcon)}</div><h3>Заказ оформлен!</h3><p>Будет готов к выдаче ${s.pickup.startsWith('через')?'':'в '}${safe(s.pickup)}</p></div><div class="flow-result-footer"><button class="primary-button" data-flow="details" data-number="${s.order.number}">Детали заказа</button>${flowHome()}</div>`,'success');
  }
 }
 function resizeFlowBank(){
