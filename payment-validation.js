@@ -16,7 +16,6 @@ function validateCardField(name, value, now=new Date()) {
   if(name==='number') {
     if(!digits) return 'Введите номер карты';
     if(digits.length<16||digits.length>19) return 'Введите корректный номер карты';
-    if(!luhnValid(digits)) return 'Карты с таким номером не существует';
   }
   if(name==='expiry') {
     if(!digits) return 'Введите срок действия';
