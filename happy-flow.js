@@ -97,7 +97,14 @@ function renderHappyPayment(){
   showFlowSheet('Заказ оформлен',`<div class="flow-result-content"><div class="flow-success-icon">${flowImage(flowAssets['6589:18334'].imgIcon)}</div><h3>Заказ оформлен!</h3><p>Будет готов к выдаче в ${safe(s.pickup)}</p></div><div class="flow-result-footer"><button class="primary-button" data-flow="details" data-number="${s.order.number}">Детали заказа</button>${flowHome()}</div>`,'success');
  }
 }
-function resizeFlowBank(){const c=$('.flow-bank-canvas');if(c){const el=$('#bottom-sheet');c.style.transform=`scale(${el.clientWidth/375},${el.clientHeight/812})`;}}
+function resizeFlowBank(){
+ const c=$('.flow-bank-canvas');if(!c)return;
+ const el=$('#bottom-sheet');
+ const mobile=window.matchMedia('(max-width: 680px)').matches;
+ const scaleY=el.clientHeight/(mobile?724:812);
+ c.style.top=mobile?`${-54*scaleY}px`:'0px';
+ c.style.transform=`scale(${el.clientWidth/375},${scaleY})`;
+}
 window.addEventListener('resize',resizeFlowBank);
 document.addEventListener('input',e=>{
  if(e.target.id!=='flow-search')return;

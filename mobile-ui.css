@@ -1,0 +1,27 @@
+/* On phones, show the app itself without the presentation or simulated iOS UI. */
+@media (max-width: 680px) {
+  :root, body { background: #fff; }
+  body { overflow: hidden; }
+  body .stage { min-height: 100dvh; padding: 0; background: #fff; }
+  body .presentation-brand,
+  body .presentation-footer,
+  body .side-button,
+  body .status-bar,
+  body .home-indicator,
+  body .pd-home-indicator,
+  body .flow-home { display: none !important; }
+  body .device,
+  body.happy-mode .device,
+  body.research-participant.happy-mode .device {
+    width: 100%; height: 100dvh; min-height: 0; max-height: none;
+    padding: 0; border: 0; border-radius: 0; background: #fff; box-shadow: none;
+  }
+  body .device::after { display: none; }
+  body .screen { border-radius: 0; }
+  body .flow-sheet { padding-bottom: 16px; }
+  body .flow-sheet.flow-result { padding-bottom: 16px; }
+  body .flow-sheet .flow-result-footer { bottom: 16px; }
+  body .flow-sheet.flow-bank { padding: 0; }
+  /* Crop the iOS bars baked into the bank screenshots. The hit areas share this canvas. */
+  body .flow-bank-canvas { clip-path: inset(54px 0 34px); }
+}
