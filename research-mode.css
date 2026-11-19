@@ -2,4 +2,6 @@
 .scenario-control,.presentation-footer,.demo-note{display:none!important}
 .single-checkout .tab:disabled{opacity:1;cursor:default}
 .happy-mode .flow-branch strong{font-weight:600}
+.happy-mode .flow-branch>img:last-child{width:16px;height:16px;flex-shrink:0}
 @media(max-width:430px){.research-participant.happy-mode .stage{padding-bottom:0}.research-participant.happy-mode .device{height:100dvh}}
+
