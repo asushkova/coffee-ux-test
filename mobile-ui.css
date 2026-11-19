@@ -18,6 +18,21 @@
   }
   body .device::after { display: none; }
   body .screen { border-radius: 0; }
+  /* Let the page continue behind the floating checkout controls. */
+  body.happy-mode .basket-opened .app-scroll {
+    padding-bottom: calc(175px + env(safe-area-inset-bottom, 0px));
+    scroll-padding-bottom: calc(175px + env(safe-area-inset-bottom, 0px));
+  }
+  body.happy-mode .basket-checkout-bar {
+    position: absolute; left: 0; right: 0;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    padding: 0 16px; background: transparent; z-index: 4;
+  }
+  body.happy-mode .tab-bar {
+    position: absolute; left: 16px; right: 16px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    margin: 0;
+  }
   body .flow-sheet { padding-bottom: 16px; }
   body .flow-sheet.flow-result { padding-bottom: 16px; }
   body .flow-sheet .flow-result-footer { bottom: 16px; }
@@ -25,3 +40,4 @@
   /* Crop the iOS bars baked into the bank screenshots. The hit areas share this canvas. */
   body .flow-bank-canvas { clip-path: inset(54px 0 34px); }
 }
+
